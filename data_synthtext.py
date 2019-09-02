@@ -109,7 +109,7 @@ class GTUtility(BaseGTUtility):
 
 
 if __name__ == '__main__':
-    gt_util = GTUtility('data/SynthText')
+    gt_util = GTUtility('/home/eugene/_DATASETS/scene_text/SynthText/SynthText', polygon=True)
     
     import pickle
     file_name = 'gt_util_synthtext.pkl'

@@ -57,7 +57,7 @@ def polygon_to_rbox3(xy):
     # length of top and bottom edge
     dt, db = tr-tl, bl-br
     # height is mean between distance from top to bottom right and distance from top edge to bottom left
-    h = (norm(np.cross(dt, tl-br)) + norm(np.cross(dt, tr-bl))) / (2*(norm(dt)+eps))
+    h = (norm(np.cross(dt, tl - br)) + norm(np.cross(dt, tr-bl))) / (2*(norm(dt)+eps))
     p1 = (tl + bl) / 2.
     p2 = (tr + br) / 2. 
     return np.hstack((p1,p2,h))
