@@ -1,6 +1,6 @@
 import numpy as np
-import pyclipper
-#from shapely import geometry
+# import pyclipper
+from shapely import geometry
 
 from sl_utils import rbox_to_polygon, polygon_to_rbox
 
@@ -69,26 +69,26 @@ def evaluate_polygonal_results(ground_truth, detection_results, iou_thresh=0.5):
                 poly2 = gt_polys[j]
                 
                 # intersection over union, pyclipper
-                pc = pyclipper.Pyclipper()
-                pc.AddPath(poly1, pyclipper.PT_CLIP, True)
-                pc.AddPath(poly2, pyclipper.PT_SUBJECT, True)
-                I = pc.Execute(pyclipper.CT_INTERSECTION, pyclipper.PFT_EVENODD, pyclipper.PFT_EVENODD)
-                if len(I) > 0:
-                    U = pc.Execute(pyclipper.CT_UNION, pyclipper.PFT_EVENODD, pyclipper.PFT_EVENODD)
-                    Ia = pyclipper.Area(I[0])
-                    Ua = pyclipper.Area(U[0])
-                    IoU = Ia / Ua
-                else:
-                    IoU = 0.0
+                # pc = pyclipper.Pyclipper()
+                # pc.AddPath(poly1, pyclipper.PT_CLIP, True)
+                # pc.AddPath(poly2, pyclipper.PT_SUBJECT, True)
+                # I = pc.Execute(pyclipper.CT_INTERSECTION, pyclipper.PFT_EVENODD, pyclipper.PFT_EVENODD)
+                # if len(I) > 0:
+                #     U = pc.Execute(pyclipper.CT_UNION, pyclipper.PFT_EVENODD, pyclipper.PFT_EVENODD)
+                #     Ia = pyclipper.Area(I[0])
+                #     Ua = pyclipper.Area(U[0])
+                #     IoU = Ia / Ua
+                # else:
+                #     IoU = 0.0
                 
                 # intersection over union, shapely, much slower
-                #I = poly1.intersection(poly2)
-                #if not I.is_empty:
-                #    Ia = I.area
-                #    Ua = poly1.area + poly2.area - Ia
-                #    IoU = Ia / Ua
-                #else:
-                #    IoU =  0.0
+                I = poly1.intersection(poly2)
+                if not I.is_empty:
+                   Ia = I.area
+                   Ua = poly1.area + poly2.area - Ia
+                   IoU = Ia / Ua
+                else:
+                   IoU =  0.0
                 
                 gt_iou.append(IoU)
                 #print(IoU)
