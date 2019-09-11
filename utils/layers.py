@@ -17,7 +17,7 @@ def leaky_relu(x):
     """Leaky Rectified Linear activation.
     
     # References
-        - [Rectifier Nonlinearities Improve Neural Network Acoustic Models](https://web.stanford.edu/~awni/papers/relu_hybrid_icml2013_final.pdf)
+        - [Rectifier Nonlinearities Improve Nefural Network Acoustic Models](https://web.stanford.edu/~awni/papers/relu_hybrid_icml2013_final.pdf)
     """
     #return K.relu(x, alpha=0.1, max_value=None)
     
@@ -48,7 +48,7 @@ class Normalize(Layer):
         Add possibility to have one scale for all features.
     """
     def __init__(self, scale, **kwargs):
-        if K.image_dim_ordering() == 'tf':
+        if K.image_data_format() == 'channels_last':
             self.axis = 3
         else:
             self.axis = 1

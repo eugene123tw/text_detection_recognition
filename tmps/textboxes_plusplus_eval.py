@@ -9,7 +9,7 @@ from tqdm import tqdm
 from sl_metric import evaluate_polygonal_results
 from ssd_metric import fscore
 from tbpp_model import TBPP512_dense
-from tbpp_utils import PriorUtil
+import tbpp_utils
 from utils.bboxes import rbox3_to_polygon
 from utils.model import load_weights, calc_memory_usage
 from utils.vis import plot_box
@@ -28,7 +28,7 @@ plot_name = 'dsodtbpp512fl_sythtext'
 
 load_weights(model, weights_path)
 
-prior_util = PriorUtil(model)
+prior_util = tbpp_utils.PriorUtil(model)
 
 _, inputs, images, data = gt_util_val.sample_random_batch(1024)
 inputs, images, data = inputs[:10], images[:10], data[:10]

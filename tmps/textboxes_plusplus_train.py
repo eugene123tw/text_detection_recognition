@@ -7,13 +7,13 @@ import pickle
 
 from tbpp_model import TBPP512, TBPP512_dense
 from tbpp_utils import PriorUtil
-from ssd_data import InputGenerator
+import ssd_data
 from tbpp_training import TBPPFocalLoss
 from utils.model import load_weights
 from utils.training import Logger
 
 from data_synthtext import GTUtility
-with open('../gt_util_synthtext.pkl', 'rb') as f:
+with open('../gt_exp.pkl', 'rb') as f:
 # with open('gt_util_synthtext_seglink.pkl', 'rb') as f:
     gt_util = pickle.load(f)
 
@@ -21,7 +21,8 @@ gt_util_train, gt_util_val = gt_util.split(0.9)
 
 # TextBoxes++ + DenseNet
 model = TBPP512_dense(softmax=False)
-weights_path = '/home/eugene/_MODELS/scene_text/201906190710_dsodtbpp512fl_synthtext/weights.022.h5'
+# weights_path = '/home/eugene/_MODELS/scene_text/201906190710_dsodtbpp512fl_synthtext/weights.022.h5'
+weights_path = None
 freeze = []
 batch_size = 6
 experiment = 'dsodtbpp512fl_synthtext'
@@ -35,8 +36,8 @@ if weights_path is not None:
 epochs = 100
 initial_epoch = 0
 
-gen_train = InputGenerator(gt_util_train, prior_util, batch_size, model.image_size)
-gen_val = InputGenerator(gt_util_val, prior_util, batch_size, model.image_size)
+gen_train = ssd_data.InputGenerator(gt_util_train, prior_util, batch_size, model.image_size)
+gen_val = ssd_data.InputGenerator(gt_util_val, prior_util, batch_size, model.image_size)
 
 for layer in model.layers:
     layer.trainable = not layer.name in freeze

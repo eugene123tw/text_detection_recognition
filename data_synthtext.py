@@ -33,6 +33,10 @@ class GTUtility(BaseGTUtility):
         self.text = []
         for i in range(num_samples):
             image_name = data['imnames'][0,i][0]
+
+            if not os.path.exists(os.path.join(image_path, image_name)):
+                continue
+
             text = [s.strip().split() for s in data['txt'][0,i]]
             text = [w for s in text for w in s]
             
@@ -109,10 +113,10 @@ class GTUtility(BaseGTUtility):
 
 
 if __name__ == '__main__':
-    gt_util = GTUtility('/home/eugene/_DATASETS/scene_text/SynthText/SynthText', polygon=True)
+    gt_util = GTUtility('/home/eugene/_DATASETS/scene_text/SynthText/EXP', polygon=True)
     
     import pickle
-    file_name = 'gt_util_synthtext.pkl'
+    file_name = 'gt_exp.pkl'
     print('save to %s...' % file_name)
     pickle.dump(gt_util, open(file_name,'wb'))
     print('done')

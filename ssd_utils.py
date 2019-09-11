@@ -219,7 +219,7 @@ class PriorMap(object):
         box_shift = box_shift * np.array([step_x, step_y]) # percent to pixels
         
         # values for individual prior boxes
-        priors_shift = np.tile(box_shift, (len(box_xy),1))
+        priors_shift = np.tile(box_shift, (len(box_xy), 1))
         priors_xy = np.repeat(box_xy, len(box_wh), axis=0) + priors_shift
         priors_wh = np.tile(box_wh, (len(box_xy),1))
                 
