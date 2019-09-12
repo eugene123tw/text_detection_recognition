@@ -29,7 +29,7 @@ class TBPPFocalLoss(object):
         class_pred = tf.argmax(conf_pred, axis=1)
         conf = tf.reduce_max(conf_pred, axis=1)
         
-        neg_mask_float = conf_true[:,0]
+        neg_mask_float = conf_true[:, 0]
         neg_mask = tf.cast(neg_mask_float, tf.bool)
         pos_mask = tf.logical_not(neg_mask)
         pos_mask_float = tf.cast(pos_mask, tf.float32)
