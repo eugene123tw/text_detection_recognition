@@ -15,7 +15,7 @@ from utils.model import load_weights, calc_memory_usage
 from utils.vis import plot_box
 
 from data_synthtext import GTUtility
-with open('../gt_util_synthtext.pkl', 'rb') as f:
+with open('../gt_exp.pkl', 'rb') as f:
     gt_util = pickle.load(f)
 
 gt_util_train, gt_util_val = gt_util.split(0.9)
@@ -31,7 +31,7 @@ load_weights(model, weights_path)
 prior_util = tbpp_utils.PriorUtil(model)
 
 _, inputs, images, data = gt_util_val.sample_random_batch(1024)
-inputs, images, data = inputs[:10], images[:10], data[:10]
+inputs, images, data = inputs[:2], images[:2], data[:2]
 preds = model.predict(inputs, batch_size=1, verbose=1)
 
 for i in range(16):

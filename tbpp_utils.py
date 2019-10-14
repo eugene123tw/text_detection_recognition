@@ -35,6 +35,7 @@ class PriorUtil(SSDPriorUtil):
         gt_one_hot = np.zeros([len(gt_class_idx), num_classes])
         gt_one_hot[range(len(gt_one_hot)), gt_class_idx] = 1  # one_hot classes including background
 
+        # Dim: num_priors x num_gt
         gt_iou = np.array([iou(b, self.priors_norm) for b in gt_boxes]).T
 
         # assigne gt to priors

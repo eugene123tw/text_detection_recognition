@@ -20,11 +20,11 @@ with open('../gt_exp.pkl', 'rb') as f:
 gt_util_train, gt_util_val = gt_util.split(0.9)
 
 # TextBoxes++ + DenseNet
-model = TBPP512_dense(softmax=False)
-# weights_path = '/home/eugene/_MODELS/scene_text/201906190710_dsodtbpp512fl_synthtext/weights.022.h5'
-weights_path = None
+model = TBPP512_dense(softmax=True)
+weights_path = '/home/eugene/_MODELS/scene_text/201906190710_dsodtbpp512fl_synthtext/weights.022.h5'
+# weights_path = None
 freeze = []
-batch_size = 6
+batch_size = 2
 experiment = 'dsodtbpp512fl_synthtext'
 
 prior_util = PriorUtil(model)
@@ -67,7 +67,7 @@ model.compile(optimizer=optim, loss=loss.compute, metrics=loss.metrics)
 print(checkdir.split('/')[-1])
 
 history = model.fit_generator(
-        gen_train.generate(debug=True),
+        gen_train.generate(debug=False),
         steps_per_epoch=int(gen_train.num_batches/4),
         epochs=epochs,
         verbose=1,
@@ -76,7 +76,7 @@ history = model.fit_generator(
             Logger(checkdir),
             #LearningRateDecay()
         ],
-        validation_data=gen_val.generate(debug=True),
+        validation_data=gen_val.generate(debug=False),
         validation_steps=gen_val.num_batches,
         class_weight=None,
         max_queue_size=1,

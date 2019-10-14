@@ -481,7 +481,7 @@ class InputGenerator(object):
     
     def generate(self, debug=False, encode=True, seed=1337):
         h, w = self.input_size
-        mean = np.array([104,117,123])
+        mean = np.array([104,117,123])  # TODO: 2
         gt_util = self.gt_util
         batch_size = self.batch_size
         num_batches = self.num_batches
@@ -499,7 +499,7 @@ class InputGenerator(object):
             for j, i in enumerate(idxs):
                 img_name = gt_util.image_names[i]
                 img_path = os.path.join(gt_util.image_path, img_name)
-                img = cv2.imread(img_path)
+                img = cv2.imread(img_path)  # TODO: 1
                 y = np.copy(gt_util.data[i])
                 
                 if debug:
